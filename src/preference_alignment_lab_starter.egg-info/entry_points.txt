@@ -1,0 +1,2 @@
+[console_scripts]
+pref-lab = preference_lab.cli:app

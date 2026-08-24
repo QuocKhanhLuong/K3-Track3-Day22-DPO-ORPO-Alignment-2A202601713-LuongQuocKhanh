@@ -1,0 +1,21 @@
+Metadata-Version: 2.4
+Name: preference-alignment-lab-starter
+Version: 0.1.0
+Summary: Production-style skeleton for DPO/ORPO preference alignment lab
+Requires-Python: >=3.10
+Requires-Dist: pydantic>=2.7
+Requires-Dist: typer>=0.12
+Requires-Dist: rich>=13.7
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: numpy>=1.26
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0; extra == "dev"
+Requires-Dist: ruff>=0.5; extra == "dev"
+Requires-Dist: mypy>=1.10; extra == "dev"
+Requires-Dist: openai>=1.30; extra == "dev"
+Provides-Extra: train
+Requires-Dist: torch>=2.2; extra == "train"
+Requires-Dist: transformers>=4.44; extra == "train"
+Requires-Dist: datasets>=2.20; extra == "train"
+Requires-Dist: trl>=0.12; extra == "train"
+Requires-Dist: peft>=0.12; extra == "train"

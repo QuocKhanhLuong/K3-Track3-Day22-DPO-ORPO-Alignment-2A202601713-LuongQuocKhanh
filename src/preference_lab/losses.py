@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+from typing import cast
+
 import numpy as np
 
 
 def _log_sigmoid(x: np.ndarray) -> np.ndarray:
     """Compute log(sigmoid(x)) without overflow."""
-    return -np.logaddexp(0.0, -x)
+    return cast(np.ndarray, -np.logaddexp(0.0, -x))
 
 
 def _validate_same_shape(*arrays: np.ndarray) -> None:
@@ -40,7 +42,7 @@ def dpo_loss(
 def _log_odds(logp: np.ndarray) -> np.ndarray:
     """Compute log(p / (1 - p)) from log(p) with safe clipping."""
     clipped = np.clip(logp, -30.0, -1e-7)
-    return clipped - np.log1p(-np.exp(clipped))
+    return cast(np.ndarray, clipped - np.log1p(-np.exp(clipped)))
 
 
 def orpo_loss(

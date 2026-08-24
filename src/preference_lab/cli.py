@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 from collections import Counter
 from pathlib import Path
+from typing import Annotated
 
 import typer
 from rich import print
@@ -105,16 +106,14 @@ def validate(data: Path) -> None:
 
 
 @app.command()
-def evaluate(config: Path) -> None:
+def evaluate(
+    config: Annotated[Path, typer.Option("--config")],
+) -> None:
     cfg = load_config(config)
     examples = load_jsonl(cfg["paths"]["train_data"])
     chosen_scores = [_heuristic_score(example.prompt, example.chosen) for example in examples]
-    rejected_scores = [
-        _heuristic_score(example.prompt, example.rejected) for example in examples
-    ]
-    metrics = {
-        "pairwise_accuracy": pairwise_accuracy(examples, chosen_scores, rejected_scores)
-    }
+    rejected_scores = [_heuristic_score(example.prompt, example.rejected) for example in examples]
+    metrics = {"pairwise_accuracy": pairwise_accuracy(examples, chosen_scores, rejected_scores)}
     out = write_metrics(metrics, cfg["paths"]["output_dir"])
     print(f"[green]Wrote metrics to {out}[/green]")
 
